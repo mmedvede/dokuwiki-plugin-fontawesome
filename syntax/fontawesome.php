@@ -16,6 +16,8 @@ class syntax_plugin_fontawesome_fontawesome extends DokuWiki_Syntax_Plugin {
     public function getType() {
         return 'substition';
     }
+
+    function getAllowedTypes() { return array('formatting', 'substition', 'disabled'); }
     /**
      * @return string Paragraph type
      */
@@ -35,13 +37,13 @@ class syntax_plugin_fontawesome_fontawesome extends DokuWiki_Syntax_Plugin {
      * @param string $mode Parser mode
      */
     public function connectTo($mode) {
-        $this->Lexer->addSpecialPattern('<fontawesome>.*</fontawesome>',$mode,'plugin_fontawesome_fontawesome');
+        $this->Lexer->addEntryPattern('<fa',$mode,'plugin_fontawesome_fontawesome');
 //        $this->Lexer->addEntryPattern('<FIXME>',$mode,'plugin_fontawesome_fontawesome');
     }
 
-//    public function postConnect() {
-//        $this->Lexer->addExitPattern('</FIXME>','plugin_fontawesome_fontawesome');
-//    }
+    public function postConnect() {
+        $this->Lexer->addExitPattern('>','plugin_fontawesome_fontawesome');
+    }
 
     /**
      * Handle matches of the fontawesome syntax
@@ -55,9 +57,14 @@ class syntax_plugin_fontawesome_fontawesome extends DokuWiki_Syntax_Plugin {
     public function handle($match, $state, $pos, &$handler){
         $data = array();
 
-        $data=$match;
+        if ($state == DOKU_LEXER_UNMATCHED){
+            $words=explode(" ",$match);
 
-        return $data;
+            $data['type'] = array_shift($words);
+            $data['data'] = join(" ", $words);
+        }
+
+        return array($state,$data);
     }
 
     /**
@@ -71,9 +78,19 @@ class syntax_plugin_fontawesome_fontawesome extends DokuWiki_Syntax_Plugin {
     public function render($mode, &$renderer, $data) {
         if($mode != 'xhtml') return false;
 
-        $renderer->doc .= $data;
+        list($state,$match)=$data;
+        if ($state == DOKU_LEXER_UNMATCHED){
+            switch($match['type']){
+            case 'icon':
+                $tag='i';
+                break;
+            }
 
-        return true;
+            $renderer->doc .= '<'.$tag.' class="'. $renderer->_xmlEntities($match['data']) .'"></'.$tag.'>';
+            return true;
+        }
+
+        return false;
     }
 }
 
