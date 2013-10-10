@@ -1,0 +1,7 @@
+base   fontawesome
+author Mikhail Medvedev
+email  mmedvede@cs.uml.edu
+date   2013-10-10
+name   fontawesome plugin
+desc   Embed Font Awesome icons
+url    http://github.com/mmedvede/dokuwiki-plugin-fontaweome
