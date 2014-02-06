@@ -14,7 +14,7 @@ To embed FontAwesome icons in your pages use the following syntax:
  - For FontAwesome < 4.0
     <faicon icon-phone>
  - For FontAweomse >= 4.0
-    <faicon fa-phone>
+    <faicon fa fa-phone>
 
 The snippet would render the *-phone icon.
 
