@@ -3,7 +3,7 @@ fontawesome Plugin for DokuWiki
 Embed Font Awesome icons
 
 All documentation for this plugin can be found at
-http://github.com/mmedvede/dokuwiki-plugin-fontaweome
+http://github.com/mmedvede/dokuwiki-plugin-fontawesome
 
 If you install this plugin manually, make sure it is installed in
 lib/plugins/fontawesome/ - if the folder is called different it
