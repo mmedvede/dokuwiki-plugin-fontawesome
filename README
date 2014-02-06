@@ -11,9 +11,12 @@ install FontAwesome automatically.
 You can edit the template you're using.
 
 To embed FontAwesome icons in your pages use the following syntax:
+ - For FontAwesome < 4.0
     <faicon icon-phone>
-The above snippet would render the icon-phone icon.
+ - For FontAweomse >= 4.0
+    <faicon fa-phone>
 
+The snippet would render the *-phone icon.
 
 =====
 
